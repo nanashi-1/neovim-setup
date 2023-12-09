@@ -1,6 +1,6 @@
 # neovim-setup
 
-My neovvim setup.
+My neovim setup.
 
 ## Installation
 
