@@ -53,15 +53,8 @@ require("lazy").setup({
 	{
 		"williamboman/mason.nvim",
 		cmd = { "Mason", "MasonInstall", "MasonInstallAll", "MasonUpdate" },
-		dependencies = {
-		},
 		config = function()
-			require("mason").setup({
-				ensure_installed = {
-					"rust-analyzer",
-					"lua-language-server"
-				},
-			})
+			require("mason").setup()
 		end,
 	},
 	{
@@ -178,7 +171,12 @@ require("lazy").setup({
 			"williamboman/mason.nvim"
 		},
 		config = function()
-			require("mason-lspconfig").setup()
+			require("mason-lspconfig").setup({
+				ensure_installed = {
+					"lua_ls",
+					"rust_analyzer"
+				}
+			})
 		end
 	},
 	{
