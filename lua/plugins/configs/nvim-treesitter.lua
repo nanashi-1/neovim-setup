@@ -23,7 +23,6 @@ require("nvim-treesitter.configs").setup({
 	},
 })
 
-local vim = vim
 local opt = vim.opt
 local api = vim.api
 
