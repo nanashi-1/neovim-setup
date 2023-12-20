@@ -1,10 +1,13 @@
 require("lazy").setup({
 	{
-		"rebelot/kanagawa.nvim",
+		"folke/tokyonight.nvim",
 		lazy = false,
 		init = function()
-			vim.cmd("colorscheme kanagawa")
+			vim.cmd("colorscheme tokyonight")
 		end,
+		opts = {
+			style = "night",
+		}
 	},
 	"nvim-lua/plenary.nvim",
 	{
@@ -23,6 +26,9 @@ require("lazy").setup({
 	},
 	{
 		"nvim-treesitter/nvim-treesitter",
+		dependencies = {
+			"tree-sitter/tree-sitter-regex"
+		},
 		cmd = { "TSInstall", "TSBufEnable", "TSBufDisable", "TSModuleInfo" },
 		build = ":TSUpdate",
 		config = function()
@@ -223,10 +229,74 @@ require("lazy").setup({
 	},
 	{
 		"lukas-reineke/indent-blankline.nvim",
-		main = "ibl"
+		main = "ibl",
+		opts = {
+			scope = { enabled = false },
+			exclude = {
+				filetypes = {
+					"help",
+					"alpha",
+					"dashboard",
+					"lazy",
+					"mason",
+					"notify",
+					"nvim-tree"
+				},
+			},
+		},
+		config = function(_, opts)
+			require("ibl").setup(opts)
+		end
 	},
 	{
 		'echasnovski/mini.indentscope',
-		version = '*'
+		version = '*',
+		opts = {
+			symbol = "│",
+			options = { try_as_border = true },
+		},
+		init = function()
+			vim.api.nvim_create_autocmd("FileType", {
+				pattern = {
+					"help",
+					"alpha",
+					"dashboard",
+					"nvim-tree",
+					"lazy",
+					"mason",
+					"notify",
+				},
+				callback = function()
+					vim.b.miniindentscope_disable = true
+				end,
+			})
+		end,
+		config = function(_, opts)
+			require('mini.indentscope').setup(opts)
+		end
+	},
+	{
+		"folke/noice.nvim",
+		event = "VeryLazy",
+		opts = {
+			lsp = {
+				override = {
+					["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+					["vim.lsp.util.stylize_markdown"] = true,
+					["cmp.entry.get_documentation"] = true,
+				},
+			},
+			presets = {
+				bottom_search = true,
+				command_palette = true,
+				long_message_to_split = true,
+				inc_rename = true,
+				lsp_doc_border = false,
+			}
+		},
+		dependencies = {
+			"MunifTanjim/nui.nvim",
+			"rcarriga/nvim-notify",
+		}
 	}
 })
