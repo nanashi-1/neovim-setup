@@ -1,19 +1,23 @@
 local map = vim.keymap.set
 
-map("n", "<C-h>", ":wincmd h<CR>")
-map("n", "<C-j>", ":wincmd j<CR>")
-map("n", "<C-k>", ":wincmd k<CR>")
-map("n", "<C-l>", ":wincmd l<CR>")
-map("n", "<C-w>", ":q<CR>")
+map("n", "<C-h>", "<cmd>wincmd h<cr>")
+map("n", "<C-j>", "<cmd>wincmd j<cr>")
+map("n", "<C-k>", "<cmd>wincmd k<cr>")
+map("n", "<C-l>", "<cmd>wincmd l<cr>")
+map("n", "<C-w>", "<cmd>q<cr>")
 
-map("n", "<tab>", ":bnext<CR>")
-map("n", "<leader>x", ":bdelete<CR>:bnext<CR>")
+map("n", "<tab>", "<cmd>bnext<cr>")
+map("n", "<leader>x", "<cmd>bdelete<cr><cmd>bnext<cr>")
 
-map({ "n", "i", "v" }, "<C-s>", ":w<CR>")
-map("n", "<leader>pf", ":Telescope find_files<CR>")
-map("n", "<leader>pb", ":Telescope buffers<CR>")
-map("n", "<leader>e", ":NvimTreeToggle<CR>")
-map("n", "<leader>pg", ":LazyGit<CR>")
-map({ "n" }, "<leader>fm", function()
+map({ "n", "v", "i" }, "<C-s>", "<cmd>w<cr><esc>")
+
+map({ "i", "n" }, "<esc>", "<cmd>noh<cr><esc>")
+
+map("n", "<leader>pf", "<cmd>Telescope find_files<cr>")
+map("n", "<leader>pb", "<cmd>Telescope buffers<cr>")
+map("n", "<leader>e", "<cmd>NvimTreeToggle<cr>")
+map("n", "<leader>pg", "<cmd>LazyGit<cr>")
+
+map("n", "<leader>fm", function()
 	vim.lsp.buf.format({ async = true })
 end)
